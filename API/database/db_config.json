@@ -1,0 +1,17 @@
+{
+    "dev_info": {
+        "dev_name": "Ghs Julian",
+        "email": "ghsjulian@gmail.com",
+        "phone": "01302.....27",
+        "facebook": "ghs.julian.85",
+        "web": "https://ghsresume.netlify.app"
+    },
+    "db_info":{
+      "url": "http://localhost:8001",
+    "host_name": "localhost",
+    "user_name": "root",
+    "password": "",
+    "db_name": "mydata",
+    "secret_key" : "__ghs__julian__"
+    }
+}

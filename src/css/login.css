@@ -1,0 +1,185 @@
+:root {
+    --blue: #009cf1;
+    --green: #00b627;
+}
+--webkit-scroll-bar {
+    display: none;
+    width: 0;
+}
+
+body --webkit-scroll-bar {
+    display: none;
+    width: 0;
+}
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: #e6e6e6;
+}
+.container {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    max-width: 900px;
+    padding: 0.7rem;
+    border: 0.1px solid rgb(1, 191, 255);
+    border-radius: 8px;
+    animation: zoom 0.5s linear alternate;
+}
+.container h2 {
+    color: rgb(1, 191, 255);
+    font-weight: 800;
+    font-size: 25px;
+    word-spacing: 3px;
+}
+.container #login {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+}
+#login input {
+    width: 90%;
+    padding: 0.9rem 1rem;
+    outline: none;
+    background: transparent;
+    border-radius: 8px;
+    border: 1px solid rgb(1, 149, 255);
+    margin: auto;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--green);
+    transition: 0.2s ease-in;
+}
+#login input:focus {
+    outline: none;
+    border: 1.5px solid var(--green);
+}
+#login #login_btn {
+    outline: none;
+    display: flex;
+    justify-content: center;
+    border: none;
+    padding: 0.6rem 0.2rem;
+    color: #fff;
+    font-weight: 700;
+    background: var(--blue);
+    width: 120px;
+    margin: 0.3rem auto;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: 0.5s ease-in-out;
+}
+#login #login_btn:hover {
+    outline: none;
+    border: none;
+    background: #009a1e;
+}
+#login #error {
+    color: #fc3100;
+    border-color: #de4600;
+    border-style: double;
+    border-radius: 8px;
+    padding: 0.7rem 2rem;
+    margin: auto;
+    font-family: Monospace;
+    font-weight: 700;
+    animation: zoom 0.3s linear alternate;
+}
+#login strong {
+    display: flex;
+    color: #3d3d3d;
+    font-weight: 700;
+    font-size: 15px;
+    margin: auto;
+}
+#login strong a {
+    color: #0043c9;
+    margin: 0 0.2rem;
+    text-decoration: none;
+}
+
+@keyframes zoom {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    20% {
+        transform: scale(0.3);
+    }
+    50% {
+        transform: scale(0.5);
+    }
+    80% {
+        transform: scale(0.7);
+    }
+    100% {
+        transform: scale(1.01);
+        opacity: 1;
+    }
+}
+
+.loading {
+  display: none;
+    width: 22px;
+    height: 22px;
+    position: relative;
+    display: inline-block;
+    border: 4px solid rgba(211, 210, 210, 0.5);
+    margin: 0 0.3rem;
+    border-left-color: #ffffff;
+    border-radius: 50%;
+    transition: 0.8s ease-in;
+    animation: rotate 0.5s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+        border-left-color: #00c5df;
+    }
+    50% {
+        transform: rotate(180deg);
+        border-left-color: #16fff9;
+    }
+    100% {
+        transform: rotate(360deg);
+        border-left-color: #ffffff;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .container {
+        width: 30%;
+        padding: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .container {
+        width: 40%;
+        padding: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .container {
+        width: 60%;
+        padding: 0.5rem;
+    }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .container {
+        width: 90%;
+        padding: 0.5rem;
+    }
+}

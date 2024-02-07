@@ -1,0 +1,51 @@
+<body>
+    <img id="img" src="images/update_product_1.jpg" width="200" height="200" />
+    <script src="js/__API__.js"></script>
+    <script>
+        var api = new API();
+        function sendImage(imgSrc, login_data) {
+            fetch(imgSrc)
+                .then(response => response.blob())
+                .then(blob => {
+                    // Convert the image data to a Base64 string
+                    const reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = () => {
+                        const base64String = reader.result.split(",")[1];
+
+                        // Send the Base64 string to the PHP server through JSON
+                        const data = {
+                            image: base64String,
+                            loginData
+                        };
+                        post_data(data);
+                    };
+                });
+        }
+        function post_data(loginData) {
+            api.postData(
+                "http://localhost:8080/settings/about-setting.php",
+                loginData,
+                res => {
+                    console.log(res);
+                }
+            );
+        }
+
+        let loginData = {
+            product_id: 4,
+            cookie: getCookie("login")
+        };
+        const img = document.getElementById("img");
+        const imgSrc = img.src;
+        // sendImage(imgSrc, loginData);
+
+        api.getData(
+            "http://localhost:8080/products/cart.php?cookie=" +
+                getCookie("login"),
+            res => {
+                console.log(res);
+            }
+        );
+    </script>
+</body>

@@ -1,0 +1,89 @@
+.login_area {
+  position: relative;
+  background: #efefef;
+  align-items: center;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    animation: edit 1s linear backwards;
+}
+.login_area h2 {
+  color: #00b0f7;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+.login_area span {
+  text-align: center;
+  margin: 0.9rem auto;
+  color: #4a4a4a;
+}
+.login_area span a {
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bolder;
+  color: #00b0f7;
+  transition: 0.3s ease-in;
+}
+.login_area span a:hover {
+  color: #00a00e;
+}
+.login_area .error {
+  color: #ff2c0c;
+  font-family: Monospace;
+  margin: auto;
+  text-align: center;
+  word-spacing: 2px;
+  animation: mesage_animate 3s;
+}
+.login_area .success {
+  color: #00771a;
+  font-family: Monospace;
+  margin: auto;
+  text-align: center;
+  word-spacing: 2px;
+  animation: mesage_animate 3s;
+}
+.login_area input {
+  outline: none;
+  border: none;
+  text-align: center;
+  box-shadow: none;
+  background: transparent;
+  border-bottom: 2px solid #00b0f7;
+  font-family: "open Sans-Serif";
+  font-weight: 500;
+}
+.login_area button {
+  outline: none;
+  border: none;
+  text-align: center;
+  box-shadow: none;
+  background: transparent;
+  border: 2px solid #00b0f7;
+  border-radius: 15px;
+  padding: 0.3rem 0.8rem;
+  margin: 0.6rem 0;
+  transition: 0.3s ease-in;
+}
+.login_area button:hover {
+  background: #00b0f7;
+  color: #fff;
+  font-weight: bolder;
+  transform: translate(0) scale(1.1);
+}
+
+@keyframes mesage_animate {
+  40% {
+    transform: translate(0) scale(0);
+  }
+  60% {
+    transform: translate(0) scale(6);
+  }
+  80% {
+    transform: translate(0) scale(0);
+  }
+  100% {
+    transform: translate(0) scale(3);
+  }
+}
