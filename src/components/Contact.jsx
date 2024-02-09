@@ -1,6 +1,7 @@
 import React from "react";
-
+import scrollTop from "../layouts/ScrollTop";
 const Contact = () => {
+ scrollTop()
     return (
         <>
             {/*<!-- Section Started -->*/}

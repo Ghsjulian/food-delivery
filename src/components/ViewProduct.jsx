@@ -2,8 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../__API__.js";
 import CategoryProducts from "./CategoryProducts";
+import scrollTop from "../layouts/ScrollTop";
+
 
 const ViewProduct = () => {
+  scrollTop()
     const [data, setData] = useState({});
     const [cartData, setCartData] = useState({});
     const navigate = useNavigate();

@@ -567,7 +567,6 @@ li {
 
 /*    Adding Cart Styling   */
 
-
 .cart-area {
     position: relative;
     display: flex;
@@ -594,6 +593,13 @@ li {
     border-radius: 50%;
     padding: 0.3rem;
 }
+.cart-area h3 {
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+    padding: 0.5rem;
+    color: rgb(255, 244, 15);
+}
 .cart-area .cart-list {
     display: flex;
     align-items: left;
@@ -608,7 +614,7 @@ li {
 }
 .cart-list .cart-div {
     text-align: left;
-    padding: 0 0.3rem;
+    padding-left: 0.5rem;
 }
 .cart-div p {
     color: #fff;
@@ -618,6 +624,29 @@ li {
 .cart-div p span {
     font-family: Poppin-Bold;
     font-size: 15px;
+}
+
+
+/*  404 Not Found  */
+
+#not-found {
+    padding-top: 50%;
+    align-items: center;
+}
+#not-found h1 {
+    color: rgb(255, 79, 12);
+    font-weight: 900;
+    font-family: Poppin-Bold;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 45px;
+}
+#not-found h2 {
+    border: none;
+    font-size: 25px;
+    margin: 0.5rem auto;
 }
 
 @keyframes zoom {

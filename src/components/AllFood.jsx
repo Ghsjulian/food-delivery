@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import api from "../__API__.js";
 import { Link } from "react-router-dom";
+import scrollTop from "../layouts/ScrollTop";
 const AllFood = () => {
+   scrollTop()
     const [products, addProducts] = useState([]);
     useEffect(() => {
         api.getData("/products/all-products.php", res => {

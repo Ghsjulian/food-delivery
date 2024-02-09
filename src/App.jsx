@@ -16,6 +16,8 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Skills from "./components/Skills";
 import ViewProduct from "./components/ViewProduct";
+import NotFound from "./components/NotFound"
+
 
 function App() {
     return (
@@ -28,16 +30,19 @@ function App() {
                         path="/view/product/:product_id"
                         element={<ViewProduct />}
                     />
+                   
+
                     <Route
                         path="/cart"
                         element={<PrivateRoute value={<AddCart />} />}
                     />
                 </Route>
-                {/*   Protected Routes   */}
+                {/*   Without Header and footer Routes   */}
                 <Route
                     path="/login"
                     element={<Protection value={<Login />} />}
                 />
+ <Route path="*" element={<NotFound />} />
                 <Route
                     path="/signup"
                     element={<Protection value={<Signup />} />}
