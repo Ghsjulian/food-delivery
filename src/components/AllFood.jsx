@@ -3,7 +3,7 @@ import api from "../__API__.js";
 import { Link } from "react-router-dom";
 import scrollTop from "../layouts/ScrollTop";
 const AllFood = () => {
-   scrollTop()
+    scrollTop();
     const [products, addProducts] = useState([]);
     useEffect(() => {
         api.getData("/products/all-products.php", res => {
@@ -15,15 +15,16 @@ const AllFood = () => {
             {/* <!-- Create Section -->*/}
             <section id="food-area" className="main-section">
                 <h2>
-                    Our <span>Dishes And Items</span>
+                    Our <i className="bi bi-arrow-right"></i>
+                    <span>Dishes And Items</span>
                 </h2>
                 <div className="row">
-                    {products.map((product)=> {
+                    {products.map((product, index) => {
                         return (
                             <>
                                 <Link
-                                    key={product.product_id}
-to={`/view/product/${product.product_id}`}
+                                    key={index}
+                                    to={`/view/product/${product.product_id}`}
                                     className="products"
                                 >
                                     <img

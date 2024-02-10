@@ -1,19 +1,18 @@
 import React from "react";
 import scrollTop from "../layouts/ScrollTop";
 const Contact = () => {
- scrollTop()
+    scrollTop();
     return (
         <>
             {/*<!-- Section Started -->*/}
 
             <div className="section">
-                <div id="aboutSection"
-                    className="about-section"
-                >
+                <div id="aboutSection" className="about-section">
                     <div className="about-text">
                         {/*<!--<h2 id="text-1">Welcome To My Portfolio</h2>-->*/}
                         <h2 id="text-2">
-                            Contact - <span>Us</span>
+                            Contact <i className="bi bi-arrow-right"></i>
+                            <span>Us</span>
                         </h2>
                         <p id="description">
                             I am a professional web developer and desginer. I

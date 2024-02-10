@@ -2,18 +2,19 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../__API__.js";
 import CategoryProducts from "./CategoryProducts";
+import { useCart } from "../context/useCart";
 import scrollTop from "../layouts/ScrollTop";
 
-
 const ViewProduct = () => {
-  scrollTop()
+    const { state, dispatch } = useCart();
+    scrollTop();
     const [data, setData] = useState({});
     const [cartData, setCartData] = useState({});
     const navigate = useNavigate();
     const { product_id } = useParams();
     const cartRef = useRef(null);
     const popRef = useRef(null);
-    const AddCart = () => {
+    const AddCart = product => {
         const product_id = cartRef.current.getAttribute("product_id");
         const cookie = api.getCookie("login");
         if (cookie !== "") {
@@ -24,6 +25,13 @@ const ViewProduct = () => {
             api.postData(`/products/cart.php`, post_data, res => {
                 if (res.status === "success") {
                     //alert(res.status);
+                    //console.log(product);
+
+                    dispatch({
+                        type: "ADD_TO_CART",
+                        payload: { product }
+                    });
+
                     popRef.current.style.display = "block";
                 } else {
                     navigate("/login");
@@ -42,6 +50,7 @@ const ViewProduct = () => {
         );
     }, [product_id]);
     document.title = data.product_name + " View Product Details";
+
     return (
         <>
             {/* <!-- Create Section -->*/}
@@ -59,7 +68,9 @@ const ViewProduct = () => {
                                     Now
                                 </button>
                                 <button
-                                    onClick={AddCart}
+                                    onClick={() => {
+                                        AddCart(data);
+                                    }}
                                     product_id={product_id}
                                     ref={cartRef}
                                     id="cart-btn"
@@ -97,7 +108,7 @@ const ViewProduct = () => {
             <div ref={popRef} style={{ display: "none" }} className="popup">
                 <span>Product Added To Your Cart</span>
                 <button
-                    onClick={()=> {
+                    onClick={() => {
                         popRef.current.style.display = "none";
                     }}
                     id="okBtn"
@@ -108,6 +119,7 @@ const ViewProduct = () => {
             {/* <!-- Create Section -->*/}
             <section id="food-area" className="main-section">
                 <h2>
+                    See <i className="bi bi-arrow-right"></i>
                     <span>Related Foods</span>
                 </h2>
                 <div className="row">

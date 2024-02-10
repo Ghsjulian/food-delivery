@@ -73,4 +73,10 @@
     #aboutSection {
         margin-top: 20%;
     }
+        .hero-section {
+        flex-direction: column;
+    }
+    .hero-section .hero-img {
+        width: 100%;
+    }
 }

@@ -5,8 +5,17 @@ import api from "../__API__.js";
 const Header = () => {
     const navRef = useRef(null);
     const [isLoggedIn, setIsLoggedIn] = useState("");
+    const [cartNum, setCart] = useState(0);
     const navigate = useNavigate();
     useEffect(() => {
+        const cookie = api.getCookie("login");
+        if (cookie !== "") {
+            api.getData(`/products/cart.php?cookie=${cookie}`, res => {
+                if (res.data) {
+                    setCart(res.data.length);
+                }
+            });
+        }
         if (api.getCookie("login")) {
             setIsLoggedIn(api.getCookie("login"));
         }
@@ -22,9 +31,9 @@ const Header = () => {
         }
     };
     const LogOut = () => {
-         api.deleteCookie("login")
+        api.deleteCookie("login");
         navigate("/login");
-       // alert("something ");
+        // alert("something ");
     };
     return (
         <>
@@ -41,7 +50,7 @@ const Header = () => {
                     {isLoggedIn && (
                         <>
                             <Link to="/notification">Notification</Link>
-                            <Link to="/cart">Cart</Link>
+                            <Link id="cart-id" to="/cart">Cart{!cartNum==0&&<span>{cartNum}</span>}</Link>
                             <Link to="/orders">Orders</Link>
                             <li onClick={LogOut}>Logout</li>
                         </>
@@ -74,8 +83,8 @@ const Header = () => {
                             <Link onClick={mobileNav} to="/notification">
                                 Notification
                             </Link>
-                            <Link onClick={mobileNav} to="/cart">
-                                Cart
+                            <Link id="cart-id" onClick={mobileNav} to="/cart">
+                                Cart{!cartNum==0&&<span>{cartNum}</span>}
                             </Link>
                             <Link onClick={mobileNav} to="/orders">
                                 Orders

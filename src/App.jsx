@@ -17,6 +17,7 @@ import Login from "./components/Login";
 import Skills from "./components/Skills";
 import ViewProduct from "./components/ViewProduct";
 import NotFound from "./components/NotFound"
+import Order from "./components/Order"
 
 
 function App() {
@@ -31,7 +32,10 @@ function App() {
                         element={<ViewProduct />}
                     />
                    
-
+                    <Route
+                        path="/order/:quantity"
+                        element={<PrivateRoute value={<Order />} />}
+                    />
                     <Route
                         path="/cart"
                         element={<PrivateRoute value={<AddCart />} />}
