@@ -6,7 +6,7 @@ import { useCart } from "../context/useCart";
 
 const AddCart = () => {
     scrollTop();
-    const { state, dispatch } = useCart();
+    const { state, dispatch, cart } = useCart();
     const [isError, setIsError] = useState(true);
     const [data, setData] = useState([]);
     const navigate = useNavigate();
@@ -30,14 +30,15 @@ const AddCart = () => {
             api.getData(
                 `/products/delete-cart.php?cart_id=${cart_id}&cookie=${cookie}`,
                 res => {
-                    alert(res.message);
+                    //alert(res.message);
                     dispatch({
-                        type: "ghs",
+                        type: "REMOVE_CART",
                         payload: {
-                            ...product
+                            cart_id
                         }
                     });
                     //window.location.reload(true);
+                   // navigate("/");
                     //  setIsUpdate({})
                 }
             );
@@ -46,13 +47,19 @@ const AddCart = () => {
         }
     };
     const [quantity, setQuantity] = useState(1);
-    const addQuantity = () => {
+    const [totalPrice, setTotalPrice] = useState(0);
+    const totalRef = useRef(null);
+    const addQuantity = price => {
         if (quantity < 5) {
-            setQuantity(quantity + 1);
+            let curentPrice = parseInt(price);
+            //  setQuantity(quantity + 1);
+            // setTotalPrice(totalRef.current.textContent);
+            alert(this.parentElement.textContent);
         }
     };
-    const minusQuantity = () => {
+    const minusQuantity = price => {
         if (quantity !== 1) {
+            let curentPrice = parseInt(price);
             setQuantity(quantity - 1);
         }
     };
@@ -66,13 +73,13 @@ const AddCart = () => {
                     <span>{data.length}</span>
                 </h2>
                 {data &&
-                    data.map((cart, index) => {
+                    cart.map((cartItem, index) => {
                         return (
                             <>
                                 <div key={index} className="cart-area">
                                     <span
                                         onClick={() => {
-                                            removeCart(cart.product_id); // Use cart_id instead of product_id
+                                            removeCart(cartItem.product_id); // Use cart_id instead of product_id
                                         }}
                                         id="remove"
                                     >
@@ -80,37 +87,53 @@ const AddCart = () => {
                                     </span>
                                     <div className="cart-list">
                                         <Link
-                                            to={`/view/product/${cart.product_id}`}
+                                            to={`/view/product/${cartItem.product_id}`}
                                         >
                                             <img
                                                 src={
                                                     api.host +
                                                     "/images/" +
-                                                    cart.product_img
+                                                    cartItem.product_img
                                                 }
                                             />
                                         </Link>
                                         <div className="cart-div">
-                                            <p id="name">{cart.product_name}</p>
+                                            <p id="name">
+                                                {cartItem.product_name}
+                                            </p>
                                             <p id="price">
                                                 Price :
-                                                <span className="price">
-                                                    {cart.product_price}
+                                                <span
+                                                    className="price"
+                                                    ref={totalRef}
+                                                >
+                                                    {" "}
+                                                    {parseInt(
+                                                        cartItem.product_price
+                                                    ) * quantity}
+                                                    TK BDT
                                                 </span>
                                             </p>
                                             <p id="price">
                                                 Quantity :{" "}
-                                                <span>{quantity}</span>
+                                                <span id="quantity_type">
+                                                    {quantity}
+                                                </span>
                                             </p>
                                             <p id="price" className="quantity">
                                                 <button
-                                                    onClick={addQuantity}
+                                                    onClick={() => {
+                                                        addQuantity(
+                                                            cartItem.product_price
+                                                        );
+                                                    }}
+                                                    className="addbtn"
                                                     id="add"
                                                 >
                                                     +
                                                 </button>
                                                 <button
-                                                    onClick={minusQuantity}
+                                                    className="addbtn"
                                                     id="add"
                                                 >
                                                     -
@@ -128,11 +151,16 @@ const AddCart = () => {
                         <h3>No Items In Cart</h3>
                     </div>
                 )}
-  
-  <div className="order-area">
-  <Link to={`/order/quantity=${quantity}`} id="order-btn">Place Order</Link>
-  </div>
-  
+
+                <div className="order-area">
+                    <h2>
+                        All Total <i className="bi bi-arrow-right"></i>{" "}
+                        <span>{totalPrice}</span>
+                    </h2>
+                    <Link to={`/order/quantity=${quantity}`} id="order-btn">
+                        Place Order
+                    </Link>
+                </div>
             </section>
             {/* *<!-- End Section -->*/}
         </>

@@ -15,7 +15,7 @@ import AddCart from "./components/AddCart";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Skills from "./components/Skills";
-import ViewProduct from "./components/ViewProduct";
+import View from "./components/View";
 import NotFound from "./components/NotFound"
 import Order from "./components/Order"
 
@@ -29,7 +29,7 @@ function App() {
                     <Route path="/about" element={<About />} />
                     <Route
                         path="/view/product/:product_id"
-                        element={<ViewProduct />}
+                        element={<View />}
                     />
                    
                     <Route
