@@ -6,11 +6,19 @@ import { useCart } from "../context/useCart";
 
 const AddCart = () => {
     scrollTop();
+    const userCookie = api.getCookie("login");
+    const [totalPrice, setTotalPrice] = useState(0);
     const { state, dispatch, cart } = useCart();
     const [isError, setIsError] = useState(true);
     const [data, setData] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
+        const price = cart.reduce((total, item) => {
+            let itemPrice = parseInt(item.product_price);
+            return total + itemPrice;
+        }, 0);
+        setTotalPrice(price);
+        /*
         const cookie = api.getCookie("login");
         if (cookie !== "") {
             api.getData(`/products/cart.php?cookie=${cookie}`, res => {
@@ -20,10 +28,12 @@ const AddCart = () => {
                     setIsError(false);
                 }
             });
+            
         } else {
             navigate("/login");
         }
-    }, []);
+        */
+    }, [cart]);
     const removeCart = cart_id => {
         const cookie = api.getCookie("login");
         if (cookie !== "") {
@@ -38,29 +48,12 @@ const AddCart = () => {
                         }
                     });
                     //window.location.reload(true);
-                   // navigate("/");
+                    // navigate("/");
                     //  setIsUpdate({})
                 }
             );
         } else {
             navigate("/login");
-        }
-    };
-    const [quantity, setQuantity] = useState(1);
-    const [totalPrice, setTotalPrice] = useState(0);
-    const totalRef = useRef(null);
-    const addQuantity = price => {
-        if (quantity < 5) {
-            let curentPrice = parseInt(price);
-            //  setQuantity(quantity + 1);
-            // setTotalPrice(totalRef.current.textContent);
-            alert(this.parentElement.textContent);
-        }
-    };
-    const minusQuantity = price => {
-        if (quantity !== 1) {
-            let curentPrice = parseInt(price);
-            setQuantity(quantity - 1);
         }
     };
 
@@ -70,9 +63,9 @@ const AddCart = () => {
             <section id="cartPage" className="main-section">
                 <h2>
                     Your Cart <i className="bi bi-arrow-right"></i>{" "}
-                    <span>{data.length}</span>
+                    <span>{cart.length}</span>
                 </h2>
-                {data &&
+                {cart &&
                     cart.map((cartItem, index) => {
                         return (
                             <>
@@ -103,41 +96,17 @@ const AddCart = () => {
                                             </p>
                                             <p id="price">
                                                 Price :
-                                                <span
-                                                    className="price"
-                                                    ref={totalRef}
-                                                >
+                                                <span className="price">
                                                     {" "}
-                                                    {parseInt(
-                                                        cartItem.product_price
-                                                    ) * quantity}
+                                                    {cartItem.product_price}
                                                     TK BDT
                                                 </span>
                                             </p>
                                             <p id="price">
                                                 Quantity :{" "}
                                                 <span id="quantity_type">
-                                                    {quantity}
+                                                    1
                                                 </span>
-                                            </p>
-                                            <p id="price" className="quantity">
-                                                <button
-                                                    onClick={() => {
-                                                        addQuantity(
-                                                            cartItem.product_price
-                                                        );
-                                                    }}
-                                                    className="addbtn"
-                                                    id="add"
-                                                >
-                                                    +
-                                                </button>
-                                                <button
-                                                    className="addbtn"
-                                                    id="add"
-                                                >
-                                                    -
-                                                </button>
                                             </p>
                                         </div>
                                     </div>
@@ -146,21 +115,23 @@ const AddCart = () => {
                             </>
                         );
                     })}
-                {!isError && (
+                {cart.length == 0 && (
                     <div className="cart-area">
                         <h3>No Items In Cart</h3>
                     </div>
                 )}
 
-                <div className="order-area">
-                    <h2>
-                        All Total <i className="bi bi-arrow-right"></i>{" "}
-                        <span>{totalPrice}</span>
-                    </h2>
-                    <Link to={`/order/quantity=${quantity}`} id="order-btn">
-                        Place Order
-                    </Link>
-                </div>
+                {cart.length > 0 && (
+                    <div className="order-area">
+                        <h2>
+                            All Total <i className="bi bi-arrow-right"></i>{" "}
+                            <span>{totalPrice}TK BDT</span>
+                        </h2>
+                        <Link to={`/order/user=${userCookie}`} id="order-btn">
+                            Place Order
+                        </Link>
+                    </div>
+                )}
             </section>
             {/* *<!-- End Section -->*/}
         </>

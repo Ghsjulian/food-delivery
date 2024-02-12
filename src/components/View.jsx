@@ -18,6 +18,12 @@ const ViewProduct = () => {
         const product_id = cartRef.current.getAttribute("product_id");
         const cookie = api.getCookie("login");
         if (cookie !== "") {
+            dispatch({
+                type: "ADD_TO_CART",
+                payload: { product_id, product }
+            });
+            popRef.current.style.display = "block";
+            /*
             const post_data = {
                 product_id,
                 cookie
@@ -27,16 +33,14 @@ const ViewProduct = () => {
                     //alert(res.status);
                     //console.log(product);
 
-                    dispatch({
-                        type: "ADD_TO_CART",
-                        payload: { product_id, product }
-                    });
+                    
 
                     popRef.current.style.display = "block";
                 } else {
                     navigate("/login");
                 }
             });
+            */
         } else {
             navigate("/login");
         }
@@ -50,7 +54,7 @@ const ViewProduct = () => {
         );
     }, [product_id]);
     document.title = data.product_name + " View Product Details";
-  //  console.log(cart);
+    //  console.log(cart);
     return (
         <>
             {/* <!-- Create Section -->*/}

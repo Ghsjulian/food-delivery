@@ -1,8 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../__API__.js";
+import { useCart } from "../context/useCart";
+
 
 const Header = () => {
+    const { state, dispatch, cart } = useCart();
     const navRef = useRef(null);
     const [isLoggedIn, setIsLoggedIn] = useState("");
     const [cartNum, setCart] = useState(0);
@@ -10,11 +13,14 @@ const Header = () => {
     useEffect(() => {
         const cookie = api.getCookie("login");
         if (cookie !== "") {
-            api.getData(`/products/cart.php?cookie=${cookie}`, res => {
+            setCart(cart.length)
+           
+        /*    api.getData(`/products/cart.php?cookie=${cookie}`, res => {
                 if (res.data) {
                     setCart(res.data.length);
                 }
             });
+            */
         }
         if (api.getCookie("login")) {
             setIsLoggedIn(api.getCookie("login"));
