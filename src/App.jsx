@@ -16,9 +16,10 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Skills from "./components/Skills";
 import View from "./components/View";
-import NotFound from "./components/NotFound"
-import Order from "./components/Order"
+import NotFound from "./components/NotFound";
+import Order from "./components/Order";
 
+/*   Admin Files And Components Here...   */
 
 function App() {
     return (
@@ -31,7 +32,7 @@ function App() {
                         path="/view/product/:product_id"
                         element={<View />}
                     />
-                   
+
                     <Route
                         path="/order/:quantity"
                         element={<PrivateRoute value={<Order />} />}
@@ -46,11 +47,12 @@ function App() {
                     path="/login"
                     element={<Protection value={<Login />} />}
                 />
- <Route path="*" element={<NotFound />} />
+                <Route path="*" element={<NotFound />} />
                 <Route
                     path="/signup"
                     element={<Protection value={<Signup />} />}
                 ></Route>
+
             </Routes>
         </Router>
     );
