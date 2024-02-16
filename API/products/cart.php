@@ -18,19 +18,31 @@ if ($requestMethod === "POST") {
     "SELECT * FROM products WHERE product_id='$product_id'"
   );
   if ($is_user && $is_product) {
-    $SQL = "INSERT INTO `cart`(`product_id`, `user_id`, `user_name`)VALUES('$product_id','$user_id','$user_name')";
-  $insert = $DB->Insert($SQL);
-  if ($insert) {
-    echo json_encode([
-      "status" => "success",
-      "message" => "Cart Added Successfully",
-    ]);
-  } else {
-    echo json_encode([
-      "status" => "failed",
-      "message" => "Failed To Added Cart !",
-    ]);
-  }
+    $products = $DB->Select_Single(
+      "SELECT * FROM products WHERE product_id='$product_id'"
+    );
+    $product_name = $products["product_name"];
+    $product_price = $products["product_price"];
+    $product_img = $products["product_img"];
+
+/*
+    $SQL = "INSERT INTO `cart`(`product_id`, `product_name`,`product_price`,`product_img`, `user_id`, `user_name`)VALUES('$product_id','$product_name','$product_price','$product_img','$user_id','$user_name')";
+    */
+$SQL = "INSERT INTO `cart`(`product_id`,`product_name`,`product_price`,`product_img`, `user_id`,`user_name`)VALUES('$product_id','$product_name','$product_price','$product_img','$user_id','$user_name')";
+
+
+    $insert = $DB->Insert($SQL);
+    if ($insert) {
+      echo json_encode([
+        "status" => "success",
+        "message" => "Cart Added Successfully",
+      ]);
+    } else {
+      echo json_encode([
+        "status" => "failed",
+        "message" => "Failed To Added Cart !",
+      ]);
+    }
   } else {
     echo json_encode([
       "status" => "failed",
@@ -45,23 +57,21 @@ if ($requestMethod === "POST") {
   $is_user = $DB->isExist(
     "SELECT * FROM users WHERE user_id='$user_id' AND user_name='$user_name'"
   );
-  $is_cart = $DB->isExist(
-    "SELECT * FROM cart WHERE user_id='$user_id'"
-  );
+  $is_cart = $DB->isExist("SELECT * FROM cart WHERE user_id='$user_id'");
   if ($is_user && $is_cart) {
     $SQL = "SELECT * FROM cart WHERE user_id='$user_id'";
-  $cart_data = $DB->Select_All($SQL);
-  if ($cart_data) {
-    echo json_encode([
-      "status" => "success",
-      "data" => $cart_data,
-    ]);
-  } else {
-    echo json_encode([
-      "status" => "failed",
-      "message" => "No Items Found In Cart!",
-    ]);
-  }
+    $cart_data = $DB->Select_All($SQL);
+    if ($cart_data) {
+      echo json_encode([
+        "status" => "success",
+        "data" => $cart_data,
+      ]);
+    } else {
+      echo json_encode([
+        "status" => "failed",
+        "message" => "No Items Found In Cart!",
+      ]);
+    }
   } else {
     echo json_encode([
       "status" => "failed",

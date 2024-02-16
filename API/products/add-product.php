@@ -1,6 +1,7 @@
 <?php
 require "../config/header.php";
 require "../database/database.php";
+require "../functions/save-image.php";
 $DB = new database();
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 if ($requestMethod === "POST") {
@@ -10,9 +11,11 @@ if ($requestMethod === "POST") {
   $description = $data["product_description"];
   $product_price = $data["product_price"];
   $category = $data["category"];
-  $SQL = "INSERT INTO `products`(`product_name`, `product_img`, `product_description`,`product_price`, `category`)VALUES('$product_name','$product_img','$description','$product_price','$category')";
+  $img_name = $DB->get_string(12) . ".jpg";
+  $SQL = "INSERT INTO `products`(`product_name`, `product_img`, `product_description`,`product_price`, `category`)VALUES('$product_name','$img_name','$description','$product_price','$category')";
   $insert = $DB->Insert($SQL);
   if ($insert) {
+      save_image($product_img, $img_name);
     echo json_encode([
       "status" => "success",
       "message" => "Product Added Successfully",

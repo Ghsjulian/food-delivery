@@ -5,9 +5,13 @@ function save_image($image, $img_name)
     preg_replace("#^data:image/\w+;base64,#i", "", $image)
   );
   $path = "../images/";
-  if (file_put_contents($path . $img_name, $imageData)) {
-    return true;
-  } else {
-    return false;
+  try {
+    if (file_put_contents($path . $img_name, $imageData)) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (Exception $e) {
+    return $e;
   }
 }
